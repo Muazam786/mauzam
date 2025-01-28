@@ -1,24 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Baggage Weight Checker</title>
-    <script>
-        // This function will check the baggage weight
-        function checkWeight() {
-            let weight = document.getElementById("baggageweight").value; // Get the input value
-            if (weight > 15) {
-                alert("Your bag is overweight!"); // Show an alert if the weight is over 15 kg
-            } else {
-                alert("Your bag is within the weight limit."); // Show an alert if the weight is fine
-            }
-        }
-        
-    </script>
+    <title>Exercise 3: Functions</title>
 </head>
 <body>
-    <h1>Baggage Weight Checker</h1>
-    <p>Enter your baggage weight (in kg):</p>
-    <input type="number" id="baggageweight" placeholder="Enter weight">
-    <button onclick="checkWeight()">Submit</button>
+    <h1>Exercise 3: Functions</h1>
+    <p>Create a page with a button and three input boxes, labelled a, b, and n.</p>
+    <p>When the user clicks, calculate the sum of all multiples of <strong>a</strong> or <strong>b</strong> below <strong>n</strong> and display it.</p>
+
+    <div class="input-container">
+        <label for="inputA">A:</label>
+        <input type="number" id="inputA" placeholder="Enter value for A">
+    </div>
+    <div class="input-container">
+        <label for="inputB">B:</label>
+        <input type="number" id="inputB" placeholder="Enter value for B">
+    </div>
+    <div class="input-container">
+        <label for="inputN">N:</label>
+        <input type="number" id="inputN" placeholder="Enter value for N">
+    </div>
+    <button onclick="doIt()">Press me!</button>
+
+    <script>
+        // Function to calculate the sum of all multiples of a or b below n
+        function sumOfMultiples(a, b, n) {
+            let sum = 0;
+            for (let i = 0; i < n; i++) {
+                if (i % a === 0 || i % b === 0) {
+                    sum += i;
+                }
+            }
+            return sum;
+        }
+
+        // Function to handle the button click
+        function doIt() {
+            const a = parseInt(document.getElementById("inputA").value, 10);
+            const b = parseInt(document.getElementById("inputB").value, 10);
+            const n = parseInt(document.getElementById("inputN").value, 10);
+
+            if (isNaN(a) || isNaN(b) || isNaN(n)) {
+                alert("Please enter valid numbers for A, B, and N.");
+                return;
+            }
+
+            const result = sumOfMultiples(a, b, n);
+            alert(`The sum of all multiples of ${a} or ${b} below ${n} is: ${result}`);
+        }
+    </script>
 </body>
 </html>
