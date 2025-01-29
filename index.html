@@ -3,51 +3,42 @@
 <head>
     <title>Exercise3</title>
 </head>
+</body>
 <body>
-    <h1>Exercise 3: Functions</h1>
-    <p>Create a page with a button and three input boxes, labelled a, b, and n.</p>
-    <p>When the user clicks, calculate the sum of all multiples of <strong>a</strong> or <strong>b</strong> below <strong>n</strong> and display it.</p>
+  <h2>Exercise 4: Arrays</h2>
+  <label for="a">a:</label>
+  <input type="number" id="a" name="a"><br>
 
-    <div class="input-container">
-        <label for="inputA">A:</label>
-        <input type="number" id="inputA" placeholder="Enter value for A">
-    </div>
-    <div class="input-container">
-        <label for="inputB">B:</label>
-        <input type="number" id="inputB" placeholder="Enter value for B">
-    </div>
-    <div class="input-container">
-        <label for="inputN">N:</label>
-        <input type="number" id="inputN" placeholder="Enter value for N">
-    </div>
-    <button onclick="doIt()">Press me!</button>
+  <label for="b">b:</label>
+  <input type="number" id="b" name="b"><br>
 
-    <script>
-        // Function to calculate the sum of all multiples of a or b below n
-        function sumOfMultiples(a, b, n) {
-            let sum = 0;
-            for (let i = 0; i < n; i++) {
-                if (i % a === 0 || i % b === 0) {
-                    sum += i;
-                }
-            }
-            return sum;
+  <label for="l">l (larger number):</label>
+  <input type="number" id="l" name="l"><br><br>
+
+  <button onclick="calculateSum()">Calculate Sum</button>
+
+  <script>
+    function calculateSum() {
+      const a = parseInt(document.getElementById('a').value);
+      const b = parseInt(document.getElementById('b').value);
+      const l = parseInt(document.getElementById('l').value);
+
+      if (isNaN(a) || isNaN(b) || isNaN(l)) {
+        alert('Please enter valid numbers for a, b, and l.');
+        return;
+      }
+
+      let sum = 0;
+
+      // Iterate over all numbers from 1 to l and check if they are multiples of a or b
+      for (let i = 1; i <= l; i++) {
+        if (i % a === 0 || i % b === 0) {
+          sum += i;
         }
+      }
 
-        // Function to handle the button click
-        function doIt() {
-            const a = parseInt(document.getElementById("inputA").value, 10);
-            const b = parseInt(document.getElementById("inputB").value, 10);
-            const n = parseInt(document.getElementById("inputN").value, 10);
-
-            if (isNaN(a) || isNaN(b) || isNaN(n)) {
-                alert("Please enter valid numbers for A, B, and N.");
-                return;
-            }
-
-             const result = sumOfMultiples(a, b, n);
-            alert(`The sum of all multiples of ${a} or ${b} below ${n} is: ${result}`);
-        }
-    </script>
+      alert('The sum of all multiples of ' + a + ' or ' + b + ' up to ' + l + ' is: ' + sum);
+    }
+  </script>
 </body>
 </html>
