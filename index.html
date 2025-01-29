@@ -1,43 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Exercise3</title>
-</head>
-</body>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 5 - Arrays</title>
+ </head>
 <body>
-  <h2>Exercise 4: Arrays</h2>
-  <label for="a">a:</label>
-  <input type="number" id="a" name="a"><br>
+  <h2>Exercise 5: Arrays</h2>
+  
+  <label for="a">Enter array a (two integers, e.g., [3, 5]):</label><br>
+  <input type="text" id="a" name="a" placeholder="Example: [3, 5]"><br><br>
 
-  <label for="b">b:</label>
-  <input type="number" id="b" name="b"><br>
-
-  <label for="l">l (larger number):</label>
-  <input type="number" id="l" name="l"><br><br>
+  <label for="l">Enter array l (upper limit, e.g., 100):</label><br>
+  <input type="text" id="l" name="l" placeholder="Example: [100]"><br><br>
 
   <button onclick="calculateSum()">Calculate Sum</button>
 
   <script>
     function calculateSum() {
-      const a = parseInt(document.getElementById('a').value);
-      const b = parseInt(document.getElementById('b').value);
-      const l = parseInt(document.getElementById('l').value);
+      // Parse the input values from the text fields
+      let a = JSON.parse(document.getElementById('a').value); // Convert string to array
+      let l = JSON.parse(document.getElementById('l').value); // Convert string to array
 
-      if (isNaN(a) || isNaN(b) || isNaN(l)) {
-        alert('Please enter valid numbers for a, b, and l.');
-        return;
-      }
+      // Ensure the input is correct: a should be an array with 2 integers and l should be an array with 1 integer
+      if (Array.isArray(a) && a.length === 2 && Array.isArray(l) && l.length === 1) {
+        let sum = 0;
+        let limit = l[0]; // Extract the upper limit from l
 
-      let sum = 0;
-
-      // Iterate over all numbers from 1 to l and check if they are multiples of a or b
-      for (let i = 1; i <= l; i++) {
-        if (i % a === 0 || i % b === 0) {
-          sum += i;
+        // Loop through numbers from 1 to the limit (inclusive)
+        for (let i = 1; i <= limit; i++) {
+          if (i % a[0] === 0 || i % a[1] === 0) {
+            sum += i; // Add the number if it's divisible by a[0] or a[1]
+          }
         }
-      }
 
-      alert('The sum of all multiples of ' + a + ' or ' + b + ' up to ' + l + ' is: ' + sum);
+        // Show the result in an alert
+        alert('The sum of all multiples of ' + a[0] + ' or ' + a[1] + ' up to ' + limit + ' is: ' + sum);
+      } else {
+        // Alert if the input is invalid
+        alert('Please enter valid arrays: a should contain two numbers, and l should contain one number.');
+      }
     }
   </script>
 </body>
