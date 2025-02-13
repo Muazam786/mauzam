@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise 8</title>
+    <title>Basket Example</title>
 </head>
 <body>
+    <h1>Shopping Basket</h1>
+    <button onclick="addItemToBasket('apple', 2)">Add 2 Apples</button>
+    <button onclick="addItemToBasket('banana', 3)">Add 3 Bananas</button>
+    <button onclick="calculateTotal()">Calculate Total Cost</button>
+    <p id="total-cost"></p>
+
     <script>
         class Basket {
             constructor() {
-                this.items = {};
+                this.items = {}; // Store items as { product: qty }
             }
 
             addItem(product, qty) {
@@ -20,24 +26,30 @@
                 }
             }
 
-            getCost(prices) { // Fixed method name
-                let totalCost = 0; // Fixed variable declaration
+            getCost(prices) {
+                let totalCost = 0;
                 for (let product in this.items) {
-                    if (prices.hasOwnProperty(product)) {
+                    if (prices[product]) {
                         totalCost += this.items[product] * prices[product];
                     }
                 }
-                return totalCost; // Fixed return statement
+                return totalCost;
             }
         }
 
-        // Example usage:
-        const basket = new Basket();
-        basket.addItem("apple", 2);
-        basket.addItem("banana", 3);
-
+        const myBasket = new Basket();
         const prices = { apple: 1.5, banana: 2.0 };
-        console.log(basket.getCost(prices)); // Output: 9.0
+
+        function addItemToBasket(product, qty) {
+            myBasket.addItem(product, qty);
+            alert(`${qty} ${product}(s) added to basket!`);
+        }
+
+        function calculateTotal() {
+            const total = myBasket.getCost(prices);
+            document.getElementById("total-cost").innerText = `Total Cost: $${total}`;
+        }
     </script>
 </body>
 </html>
+
