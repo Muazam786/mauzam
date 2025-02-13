@@ -145,5 +145,39 @@
             document.getElementById("result").innerText = "Total Cost: $" + totalCost.toFixed(2);
         } 
     </script>
+    <script>
+    class Basket {
+      constructor() {
+          this.items = {};
+      }
+  
+      addItem(product, qty) {
+          if (this.items[product]) {
+              this.items[product] += qty;
+          } else {
+              this.items[product] = qty;
+          }
+      }
+  
+      getCost(prices) {
+          let totalCost = 0;
+          for (let product in this.items) {
+              if (prices[product]) {
+                  totalCost += this.items[product] * prices[product];
+              }
+          }
+          return totalCost;
+      }
+  }
+  
+  // Example usage:
+  const basket = new Basket();
+  basket.addItem("apple", 2);
+  basket.addItem("banana", 3);
+  
+  const prices = { apple: 1.5, banana: 2.0 };
+  console.log(basket.getCost(prices)); // Output: 9.0
+  </script>
+  
 </body>
 </html>
