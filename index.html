@@ -1,183 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exercises 4,5,6 </title>
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 8</title>
 </head>
 <body>
-  <h2>Exercise 4: Arrays</h2>
-  <label for="a">a:</label>
-  <input type="number" id="a" name="a"><br>
-
-  <label for="b">b:</label>
-  <input type="number" id="b" name="b"><br>
-
-  <label for="l">l (larger number):</label>
-  <input type="number" id="l" name="l"><br><br>
-
-  <button onclick="calculateSum()">Calculate Sum</button>
-
-  <script>
-    function calculateSum() {
-      const a = parseInt(document.getElementById('a').value);
-      const b = parseInt(document.getElementById('b').value);
-      const l = parseInt(document.getElementById('l').value);
-
-      if (isNaN(a) || isNaN(b) || isNaN(l)) {
-        alert('Please enter valid numbers for a, b, and l.');
-        return;
-      }
-
-      let sum = 0;
-// Iterate over all numbers from 1 to l and check if they are multiples of a or b
-      for (let i = 1; i <= l; i++) {
-        if (i % a === 0 || i % b === 0) {
-          sum += i;
-        }
-      }
-
-      alert('The sum of all multiples of ' + a + ' or ' + b + ' up to ' + l + ' is: ' + sum);
-    }
-  </script>
-<h2>Exercise 5: Arrays</h2>
-  
-  <label for="a">Enter array a (two integers, e.g., [3, 5]):</label><br>
-  <input type="text" id="a" name="a" placeholder="Example: [3, 5]"><br><br>
-
-  <label for="l">Enter array l (upper limit, e.g., 100):</label><br>
-  <input type="text" id="l" name="l" placeholder="Example: [100]"><br><br>
-
-  <button onclick="calculateSum()">Calculate Sum</button>
-
-  <script>
-    function calculateSum() {
-      // Parse the input values from the text fields
-      let a = JSON.parse(document.getElementById('a').value); // Convert string to array
-      let l = JSON.parse(document.getElementById('l').value); // Convert string to array
-
-      // Ensure the input is correct: a should be an array with 2 integers and l should be an array with 1 integer
-      if (Array.isArray(a) && a.length === 2 && Array.isArray(l) && l.length === 1) {
-        let sum = 0;
-        let limit = l[0]; // Extract the upper limit from l
-
-        // Loop through numbers from 1 to the limit (inclusive)
-        for (let i = 1; i <= limit; i++) {
-          if (i % a[0] === 0 || i % a[1] === 0) {
-            sum += i; // Add the number if it's divisible by a[0] or a[1]
-          }
-        }
-
-        // Show the result in an alert
-        alert('The sum of all multiples of ' + a[0] + ' or ' + a[1] + ' up to ' + limit + ' is: ' + sum);
-      } else {
-        // Alert if the input is invalid
-        alert('Please enter valid arrays: a should contain two numbers, and l should contain one number.');
-      }
-    }
-  </script>
-
- <h2>Exercise 6: Arrays</h2>
-
-  <label for="a">Enter array a (factors, e.g., 3, 5):</label><br>
-  <input type="text" id="a" name="a" placeholder="Example: 3, 5"><br><br>
-
-  <label for="l">Enter array l (upper limit, e.g., 100):</label><br>
-  <input type="text" id="l" name="l" placeholder="Example: 100"><br><br>
-
-  <button onclick="calculateSum()">Calculate Sum</button>
-
-  <script>
-    function calculateSum() {
-      // Get the input values and convert them into arrays
-      let a = document.getElementById('a').value.split(',').map(Number);  // Split string into array and convert to numbers
-      let l = parseInt(document.getElementById('l').value); // Convert l to a number
-
-      // Validate the input
-      if (a.length < 1 || isNaN(l)) {
-        alert('Please enter valid arrays: a should be a list of numbers, and l should be a number.');
-        return;
-      }
-
-      let sum = 0;
-
-      // Loop through numbers from 1 to l and check if they are multiples of any number in array a
-      for (let i = 1; i <= l; i++) {
-        // Check if i is divisible by any factor in a
-        for (let factor of a) {
-          if (i % factor === 0) {
-            sum += i;  // Add to sum if i is a multiple of factor
-            break;  // No need to check further once we find a factor
-          }
-        }
-      }
-
-      // Alert the result
-      alert('The sum of all multiples of factors in ' + a.join(', ') + ' up to ' + l + ' is: ' + sum);
-    }
-  </script>
-    <h2>Basket Cost calculate</h2>
-    <label for="basket">Enter Basket (JSON):</label>
-    <input type="text" id="basket" value='{"apple":3, "banana":2, "orange":5}'><br>
-    
-    <label for="prices">Enter Prices (JSON):</label>
-    <input type="text" id="prices" value='{"apple":0.5, "banana":0.75, "orange":0.8}'><br>
-    
-    <button onclick="calculateTotal()">Calculate</button>
-    <p id="result"></p>
-
     <script>
-        function f7(basket, prices) {
-            let totalCost = 0;
-            for (let product in basket) {
-                if (prices.hasOwnProperty(product)) {
-                    totalCost += basket[product] * prices[product];
+        class Basket {
+            constructor() {
+                this.items = {};
+            }
+
+            addItem(product, qty) {
+                if (this.items[product]) {
+                    this.items[product] += qty;
+                } else {
+                    this.items[product] = qty;
                 }
             }
-            return totalCost;
+
+            getCost(prices) { // Fixed method name
+                let totalCost = 0; // Fixed variable declaration
+                for (let product in this.items) {
+                    if (prices.hasOwnProperty(product)) {
+                        totalCost += this.items[product] * prices[product];
+                    }
+                }
+                return totalCost; // Fixed return statement
+            }
         }
 
-        function calculateTotal() {
-            const basket = JSON.parse(document.getElementById("basket").value);
-            const prices = JSON.parse(document.getElementById("prices").value);
-            const totalCost = f7(basket, prices);
-            document.getElementById("result").innerText = "Total Cost: $" + totalCost.toFixed(2);
-        } 
+        // Example usage:
+        const basket = new Basket();
+        basket.addItem("apple", 2);
+        basket.addItem("banana", 3);
+
+        const prices = { apple: 1.5, banana: 2.0 };
+        console.log(basket.getCost(prices)); // Output: 9.0
     </script>
-    <script>
-    class Basket {
-      constructor() {
-          this.items = {};
-      }
-  
-      addItem(product, qty) {
-          if (this.items[product]) {
-              this.items[product] += qty;
-          } else {
-              this.items[product] = qty;
-          }
-      }
-  
-      getCost(prices) {
-          let totalCost = 0;
-          for (let product in this.items) {
-              if (prices[product]) {
-                  totalCost += this.items[product] * prices[product];
-              }
-          }
-          return totalCost;
-      }
-  }
-  
-  // Example usage:
-  const basket = new Basket();
-  basket.addItem("apple", 2);
-  basket.addItem("banana", 3);
-  
-  const prices = { apple: 1.5, banana: 2.0 };
-  console.log(basket.getCost(prices)); // Output: 9.0
-  </script>
-  
 </body>
 </html>
