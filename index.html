@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basket Example</title>
+    <title>Basket Testing</title>
 </head>
 <body>
-    <h1>Shopping Basket</h1>
-    <button onclick="addItemToBasket('apple', 2)">Add 2 Apples</button>
-    <button onclick="addItemToBasket('banana', 3)">Add 3 Bananas</button>
-    <button onclick="calculateTotal()">Calculate Total Cost</button>
-    <p id="total-cost"></p>
+    <h2>Basket Testing</h2>
+    <label for="product">Product:</label>
+    <input type="text" id="product">
+    <label for="qty">Quantity:</label>
+    <input type="number" id="qty">
+    <button onclick="addItem()">Add Item</button>
+    <br><br>
+    <button onclick="calculateCost()">Get Total Cost</button>
+    <p id="output"></p>
 
     <script>
         class Basket {
             constructor() {
-                this.items = {}; // Store items as { product: qty }
+                this.items = {};
             }
 
             addItem(product, qty) {
@@ -37,17 +41,24 @@
             }
         }
 
-        const myBasket = new Basket();
-        const prices = { apple: 1.5, banana: 2.0 };
+        let basket = new Basket();
+        let prices = { "apple": 2, "banana": 1, "orange": 1.5 }; // Example prices
 
-        function addItemToBasket(product, qty) {
-            myBasket.addItem(product, qty);
-            alert(`${qty} ${product}(s) added to basket!`);
+        function addItem() {
+            let product = document.getElementById("product").value;
+            let qty = parseInt(document.getElementById("qty").value);
+            
+            if (product && qty > 0) {
+                basket.addItem(product, qty);
+                alert(product + " added to basket");
+            } else {
+                alert("Please enter a valid product and quantity");
+            }
         }
 
-        function calculateTotal() {
-            const total = myBasket.getCost(prices);
-            document.getElementById("total-cost").innerText = `Total Cost: $${total}`;
+        function calculateCost() {
+            let total = basket.getCost(prices);
+            document.getElementById("output").innerText = "Total Cost: $" + total;
         }
     </script>
 </body>
