@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Basket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .basket-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+        }
+        .basket-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Shopping Basket</h2>
+    <div class="basket-container">
+        <ul id="basket-list" class="basket-list"></ul>
+        <h3>Total Cost: $<span id="total-cost">0.00</span></h3>
+        <button onclick="addItemToBasket('apple', 1)">Add Apple ($1.5)</button>
+        <button onclick="addItemToBasket('banana', 2)">Add Banana ($2.0)</button>
+        <button onclick="addItemToBasket('orange', 1)">Add Orange ($2.5)</button>
+    </div>
+
+    <script>
+        class Basket {
+            constructor() {
+                this.items = {}; // Stores items in { product: quantity } format
+            }
+
+            addItem(product, qty) {
+                if (this.items[product]) {
+                    this.items[product] += qty; // Increase quantity if item exists
+                } else {
+                    this.items[product] = qty; // Add new item
+                }
+            }
+
+            getCost(prices) {
+                let totalCost = 0;
+                for (let product in this.items) {
+                    if (prices[product]) {
+                        totalCost += prices[product] * this.items[product];
+                    }
+                }
+                return totalCost;
+            }
+        }
+
+        const basket = new Basket();
+        const prices = { apple: 1.5, banana: 2.0, orange: 2.5 };
+
+        function addItemToBasket(product, qty) {
+            basket.addItem(product, qty);
+            updateBasketDisplay();
+        }
+
+        function updateBasketDisplay() {
+            const basketList = document.getElementById("basket-list");
+            basketList.innerHTML = "";
+
+            for (let product in basket.items) {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${product} - ${basket.items[product]} pcs`;
+                basketList.appendChild(listItem);
+            }
+
+            document.getElementById("total-cost").textContent = basket.getCost(prices).toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
