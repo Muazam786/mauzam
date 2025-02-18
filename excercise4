@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum of Multiples</title>
+</head>
+<body>
+    <label for="a">Enter a:</label>
+    <input type="number" id="a"><br><br>
+    
+    <label for="b">Enter b:</label>
+    <input type="number" id="b"><br><br>
+    
+    <label for="l">Enter array (comma-separated numbers):</label>
+    <input type="text" id="l" size="50"><br><br>
+    
+    <button onclick="calculateSum()">Calculate</button>
+    
+    <script>
+        function f4(a, b, arr) {
+            return arr.reduce((sum, num) => (num % a === 0 || num % b === 0) ? sum + num : sum, 0);
+        }
+        
+        function calculateSum() {
+            let a = parseInt(document.getElementById('a').value);
+            let b = parseInt(document.getElementById('b').value);
+            let arr = document.getElementById('l').value.split(',').map(Number);
+            
+            let result = f4(a, b, arr);
+            alert('The sum of multiples is: ' + result);
+        }
+    </script>
+</body>
+</html>
