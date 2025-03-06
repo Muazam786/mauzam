@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 5 Arrays</title>
+</head>
+<body>
+    <h2>Exercise 5: Arrays</h2>
+    <label for="arrayA">Array a (comma-separated, length 2):</label>
+    <input type="text" id="arrayA" placeholder="e.g., 3,5"><br><br>
+
+    <label for="arrayL">Array l (comma-separated):</label>
+    <input type="text" id="arrayL" placeholder="e.g., 1,2,3,4,5"><br><br>
+
+    <button onclick="calculateSum()">Calculate Sum</button>
+
+    <script>
+        function f5(a, l) {
+            let sum = 0;
+            for (let i = 0; i < l.length; i++) {
+                if (l[i] % a[0] === 0 || l[i] % a[1] === 0) {
+                    sum += l[i];
+                }
+            }
+            return sum;
+        }
+
+        function calculateSum() {
+            let a = document.getElementById("arrayA").value.split(',').map(Number);
+            let l = document.getElementById("arrayL").value.split(',').map(Number);
+
+            if (a.length !== 2 || a.some(isNaN) || l.some(isNaN)) {
+                alert("Please enter valid numbers in both input fields.");
+                return;
+            }
+
+            let result = f5(a, l);
+            alert("The sum of multiples is: " + result);
+        }
+    </script>
+</body>
+</html>
